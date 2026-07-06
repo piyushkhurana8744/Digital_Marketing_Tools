@@ -1,0 +1,442 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   LIGHT MODE DESIGN TOKENS (default) — Premium Consumer Theme
+   ============================================================ */
+:root {
+  --background: #F9FAFB;
+  --foreground: #09090B;
+
+  --secondary-bg: #F3F4F6;
+  --card-bg: #FFFFFF;
+  --accent-bg: #FEF2F2;
+  --warm-bg: #FAFAF9;
+  --cool-bg: #F9FAFB;
+  --border-color: #E5E7EB;
+  --border-color-strong: #D1D5DB;
+  --text-secondary: #374151;
+  --text-muted: #6B7280;
+
+  --primary: #BE1E2E;
+  --primary-hover: #A31825;
+  --primary-light: #FEE2E2;
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+
+  /* Premium translucent glass */
+  --glass-surface: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(229, 231, 235, 0.5);
+  --glass-border-hover: rgba(190, 30, 46, 0.2);
+
+  --neon-violet: #8B5CF6;
+  --neon-cyan: #06B6D4;
+  --neon-pink: #EC4899;
+  --neon-emerald: #10B981;
+
+  /* Soft consumer-first shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.06);
+  --section-shadow: 0 1px 0 #E5E7EB;
+
+  /* Auth & footer backgrounds */
+  --auth-bg: #F9FAFB;
+  --auth-bg-glow-a: rgba(190, 30, 46, 0.02);
+  --auth-bg-glow-b: rgba(190, 30, 46, 0.01);
+  --footer-bg: #F3F4F6;
+  --footer-text: #374151;
+}
+
+/* ============================================================
+   DARK MODE DESIGN TOKENS
+   ============================================================ */
+.dark {
+  --background: #0D0D10;
+  --foreground: #F4F4F7;
+
+  --secondary-bg: #111115;
+  --card-bg: #18181C;
+  --accent-bg: #1A1012;
+  --warm-bg: #1A1511;
+  --cool-bg: #10141A;
+  --border-color: #27272A;
+  --border-color-strong: #3F3F46;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+
+  --primary: #F43F5E;
+  --primary-hover: #E11D48;
+  --primary-light: rgba(244, 63, 94, 0.10);
+
+  /* Dark mode glass = frosted dark surface */
+  --glass-surface: rgba(24, 24, 28, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-border-hover: rgba(244, 63, 94, 0.22);
+
+  --neon-violet: #A78BFA;
+  --neon-cyan: #22D3EE;
+  --neon-pink: #FB7185;
+  --neon-emerald: #34D399;
+
+  --card-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+  --card-shadow-hover: 0 12px 40px rgba(244, 63, 94, 0.22), 0 4px 16px rgba(0,0,0,0.4);
+  --section-shadow: 0 1px 0 rgba(255,255,255,0.04);
+
+  --auth-bg: #07070A;
+  --auth-bg-glow-a: rgba(167, 139, 250, 0.06);
+  --auth-bg-glow-b: rgba(34, 211, 238, 0.05);
+  --footer-bg: #070709;
+  --footer-text: #D4D4D8;
+}
+
+/* ============================================================
+   TAILWIND THEME BRIDGE
+   ============================================================ */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-secondary-bg: var(--secondary-bg);
+  --color-card-bg: var(--card-bg);
+  --color-accent-bg: var(--accent-bg);
+  --color-warm-bg: var(--warm-bg);
+  --color-cool-bg: var(--cool-bg);
+  --color-border-color: var(--border-color);
+  --color-border-color-strong: var(--border-color-strong);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-neon-violet: var(--neon-violet);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-emerald: var(--neon-emerald);
+
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glow-pulse: glow-pulse-key 2.5s ease-in-out infinite alternate;
+}
+
+/* ============================================================
+   BASE BODY
+   ============================================================ */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================================
+   SECTION BACKGROUND UTILITIES
+   ============================================================ */
+.bg-light-section-gray  { background-color: var(--secondary-bg); color: var(--foreground); }
+.bg-light-section-red   { background-color: var(--accent-bg);    color: var(--foreground); }
+.bg-light-section-white { background-color: var(--background);   color: var(--foreground); }
+.bg-light-section-warm  { background-color: var(--warm-bg);      color: var(--foreground); }
+.bg-light-section-cool  { background-color: var(--cool-bg);      color: var(--foreground); }
+
+/* Theme-aware auth page background */
+.auth-page-bg {
+  background-color: var(--auth-bg);
+  color: var(--foreground);
+  transition: background-color 0.3s ease;
+}
+
+/* Theme-aware footer */
+.footer-bg {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+/* ============================================================
+   GLASS PANEL
+   Light: crisp white card with depth shadow
+   Dark:  frosted dark glass with border
+   ============================================================ */
+.glass-panel {
+  position: relative;
+  background: var(--glass-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Static glass panel (no hover transform) */
+.glass-panel-static {
+  position: relative;
+  background: var(--glass-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 20px;
+}
+
+/* ============================================================
+   GLOW HOVER VARIANTS
+   ============================================================ */
+.glow-violet-hover:hover {
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.15);
+  border-color: var(--neon-violet);
+}
+.glow-cyan-hover:hover {
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.15);
+  border-color: var(--neon-cyan);
+}
+.glow-pink-hover:hover {
+  box-shadow: 0 12px 30px rgba(244, 63, 94, 0.18);
+  border-color: var(--primary);
+}
+.glow-emerald-hover:hover {
+  box-shadow: 0 12px 30px rgba(5, 150, 105, 0.15);
+  border-color: var(--neon-emerald);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes glow-pulse-key {
+  0%   { box-shadow: 0 0 10px rgba(225, 29, 72, 0.15); }
+  100% { box-shadow: 0 0 28px rgba(225, 29, 72, 0.4);  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-8px) rotate(-1deg); }
+}
+
+.animate-float-slow   { animation: float-slow 6s ease-in-out infinite; }
+.animate-float-medium { animation: float-medium 4s ease-in-out infinite; }
+.animate-rotate-slow  { animation: spin 20s linear infinite; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: 12px;
+  height: 48px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(190, 30, 46, 0.25);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 20px rgba(190, 30, 46, 0.35);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  position: relative;
+  background: var(--card-bg);
+  color: var(--foreground);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  height: 48px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+.btn-secondary:hover {
+  background: var(--primary-light);
+  border-color: rgba(190, 30, 46, 0.2);
+  color: var(--primary);
+}
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   PREMIUM INPUTS
+   ============================================================ */
+.premium-input {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--foreground);
+  border-radius: 12px;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: all 0.22s ease;
+  box-shadow: var(--shadow-sm);
+}
+.premium-input::placeholder {
+  color: var(--text-muted);
+}
+.premium-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* ============================================================
+   RANGE SLIDER
+   ============================================================ */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--card-bg);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.45);
+}
+
+/* ============================================================
+   DECORATIVE UTILITIES
+   ============================================================ */
+.section-accent-bar {
+  height: 4px;
+  width: 60px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--neon-pink));
+  margin: 0 auto;
+}
+
+.premium-card-hover {
+  position: relative;
+  overflow: hidden;
+}
+.premium-card-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary), var(--neon-pink));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.premium-card-hover:hover::before {
+  opacity: 1;
+}
+
+/* Subtle grid pattern */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 1;
+}
+.dark .bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  opacity: 1;
+}
+
+/* Dashes animation */
+@keyframes dash {
+  to { stroke-dashoffset: -40; }
+}
+.animate-dash {
+  stroke-dasharray: 8, 4;
+  animation: dash 2.5s linear infinite;
+}
+
+/* ============================================================
+   LIGHT MODE POLISH (only applied outside .dark)
+   ============================================================ */
+
+/* Consumer illustration container backgrounds */
+.warm-illustration-bg {
+  background-color: #F3F4F6;
+}
+.dark .warm-illustration-bg {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Consumer neutral chip / badge backgrounds */
+.warm-chip-bg {
+  background-color: #F3F4F6;
+}
+.dark .warm-chip-bg {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Light mode glass panel: clean white card with extremely soft shadow */
+.glass-panel::after,
+.glass-panel-static::after {
+  display: none;
+}
+
+/* Light mode body subtle texture overlay (very faint) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.01;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+.dark body::before {
+  opacity: 0;
+}
+
+/* Red primary button shadow */
+.btn-primary {
+  box-shadow: 0 4px 14px rgba(190, 30, 46, 0.18);
+}
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(190, 30, 46, 0.25);
+}
+
